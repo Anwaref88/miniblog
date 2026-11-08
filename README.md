@@ -75,3 +75,25 @@ revisión; después entra como `docente.demo` (o como administrador), revísala 
 
 > **Importante:** borra estos usuarios (en `/admin/users/`, como administrador) o cambia su contraseña
 > antes de publicar el blog en internet. Contraseñas conocidas en un servidor público son un riesgo.
+
+## Cómo he desplegado el proyecto
+
+### Comandos utilizados
+
+1. Instalar paquetes: `sudo apt install git openssh-client php-cli php-sqlite3 php-xml php-mbstring php-intl php-curl unzip composer`
+2. Configurar Git: `git config --global user.name` y `user.email`
+3. Generar clave SSH: `ssh-keygen -t ed25519` y añadirla a GitHub
+4. Hacer fork y clonar: `git clone git@github.com:Anwaref88/miniblog.git`
+5. Instalar dependencias: `composer install`
+6. Crear base de datos: `php bin/console create-schema`
+7. Crear usuario: `php bin/console app:create-user admin "Administrador"`
+8. Arrancar el servidor: `php -S localhost:8000 -t public`
+9. Sincronizar con el original: `git remote add upstream`, `git fetch upstream` y `git merge upstream/master`
+
+### Problemas que me han surgido
+
+- GitHub pidió verificación por correo al añadir la clave SSH.
+- Al probar `localhost:8000` desde Windows tuve que usar un túnel SSH, porque el servidor corre dentro de la máquina virtual.
+- El traductor del navegador cambiaba los nombres de ramas y ficheros en GitHub; lo desactivé.
+- Al crear el pull request, GitHub proponía por defecto el repositorio del profesor y tuve que abrirlo hacia mi fork.
+- Al resolver el conflicto en nano se me descolocó el cursor y tuve que reabrir el fichero con `git checkout --merge`.
